@@ -42,18 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Q",
+                    "name": "Rotate",
                     "type": "PassThrough",
                     "id": "26b590b8-53cd-49de-a239-5d79c053ac60",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "E",
-                    "type": "PassThrough",
-                    "id": "7941671b-be04-4ad7-83c7-c06c874b9f80",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -115,26 +106,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d577f086-19ee-4a5f-81b4-82839f01782e",
+                    "name": "QE",
+                    "id": "390e9693-f3c6-4ce1-ba1a-fe2d01618967",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "aa2e7735-7878-44b3-864e-96a6456df182",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "fa5e4844-1464-4c34-ab6d-0ac955be5ecb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "53f1468a-240d-45f7-8766-2922ec55f7fe",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Q",
+                    "action": "Rotate",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "a941ff2d-eaa1-4c2a-9838-180fc00df119",
+                    "name": "right",
+                    "id": "eb9a264b-cf07-4ccb-b932-196bfa6c7761",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "E",
+                    "action": "Rotate",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
