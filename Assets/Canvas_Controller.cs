@@ -27,7 +27,7 @@ public class Canvas_Controller : MonoBehaviour
     void Awake()
     {
         CanvasArray = new GameObject[7, 7];
-        for (int i=0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             GameObject currentChild = transform.GetChild(i).gameObject;
             if (currentChild.CompareTag("Canvas"))
@@ -54,6 +54,8 @@ public class Canvas_Controller : MonoBehaviour
 
     public void SetMaterial(int XPos, int YPos, Material Color)
     {
+        Debug.Log("X: " + XPos + "Y: " + YPos);
+        Debug.Log(CanvasArray[XPos, YPos]);
         GameObject Canvas = CanvasArray[XPos, YPos];
         Canvas.GetComponent<MeshRenderer>().material = Color;
     }
