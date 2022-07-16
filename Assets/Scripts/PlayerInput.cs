@@ -64,18 +64,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Q"",
+                    ""name"": ""Rotate"",
                     ""type"": ""PassThrough"",
                     ""id"": ""26b590b8-53cd-49de-a239-5d79c053ac60"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""E"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""7941671b-be04-4ad7-83c7-c06c874b9f80"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -137,26 +128,59 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""d577f086-19ee-4a5f-81b4-82839f01782e"",
+                    ""name"": ""QE"",
+                    ""id"": ""390e9693-f3c6-4ce1-ba1a-fe2d01618967"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""aa2e7735-7878-44b3-864e-96a6456df182"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fa5e4844-1464-4c34-ab6d-0ac955be5ecb"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""53f1468a-240d-45f7-8766-2922ec55f7fe"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Q"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""a941ff2d-eaa1-4c2a-9838-180fc00df119"",
+                    ""name"": ""right"",
+                    ""id"": ""eb9a264b-cf07-4ccb-b932-196bfa6c7761"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""E"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -180,8 +204,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_A = m_Player.FindAction("A", throwIfNotFound: true);
         m_Player_S = m_Player.FindAction("S", throwIfNotFound: true);
         m_Player_D = m_Player.FindAction("D", throwIfNotFound: true);
-        m_Player_Q = m_Player.FindAction("Q", throwIfNotFound: true);
-        m_Player_E = m_Player.FindAction("E", throwIfNotFound: true);
+        m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
     }
 
@@ -246,8 +269,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_A;
     private readonly InputAction m_Player_S;
     private readonly InputAction m_Player_D;
-    private readonly InputAction m_Player_Q;
-    private readonly InputAction m_Player_E;
+    private readonly InputAction m_Player_Rotate;
     private readonly InputAction m_Player_Escape;
     public struct PlayerActions
     {
@@ -257,8 +279,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @A => m_Wrapper.m_Player_A;
         public InputAction @S => m_Wrapper.m_Player_S;
         public InputAction @D => m_Wrapper.m_Player_D;
-        public InputAction @Q => m_Wrapper.m_Player_Q;
-        public InputAction @E => m_Wrapper.m_Player_E;
+        public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -281,12 +302,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @D.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnD;
                 @D.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnD;
                 @D.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnD;
-                @Q.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQ;
-                @Q.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQ;
-                @Q.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQ;
-                @E.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnE;
-                @E.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnE;
-                @E.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnE;
+                @Rotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
                 @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
@@ -306,12 +324,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @D.started += instance.OnD;
                 @D.performed += instance.OnD;
                 @D.canceled += instance.OnD;
-                @Q.started += instance.OnQ;
-                @Q.performed += instance.OnQ;
-                @Q.canceled += instance.OnQ;
-                @E.started += instance.OnE;
-                @E.performed += instance.OnE;
-                @E.canceled += instance.OnE;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
@@ -325,8 +340,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnA(InputAction.CallbackContext context);
         void OnS(InputAction.CallbackContext context);
         void OnD(InputAction.CallbackContext context);
-        void OnQ(InputAction.CallbackContext context);
-        void OnE(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
     }
 }
