@@ -10,11 +10,22 @@ using Debug = UnityEngine.Debug;
 
 public class Controls : MonoBehaviour {
     private Quaternion targetRotation;
+    private Paint paint;
 
     // Cinamachine Camera
     [SerializeField]
     private Camera camera;
-    [SerializeField] private Vector3 camRot; 
+    [SerializeField] private Vector3 camRot;
+
+    private void Start() {
+        paint = GetComponent<Paint>();
+        paint.SetDiceColor(1, paint.yellow);
+        paint.SetDiceColor(2, paint.black);
+        paint.SetDiceColor(3, paint.yellow);
+        paint.SetDiceColor(4, paint.yellow);
+        paint.SetDiceColor(5, paint.yellow);
+        paint.SetDiceColor(6, paint.yellow);
+    }
 
     private void Update() {
         camRot = camera.transform.rotation.eulerAngles;
@@ -129,7 +140,10 @@ public class Controls : MonoBehaviour {
             remainingAngle -= rotationAngle;
             yield return null;
         }
-
+        
+        // finished rolling, paint the canvas
+        paint.SetCanvasColor();
+        
         isMoving = false;
     }
 
