@@ -71,3 +71,6 @@ crashlytics-build.properties
 *.shader
 *.asset
 /Assets/TextMesh Pro
+
+#allow blend meta files
+!*.blend.meta
