@@ -67,7 +67,6 @@ crashlytics-build.properties
 ../.DS_Store
 
 #meta
-*.meta
 *.shader
 *.asset
 /Assets/TextMesh Pro
