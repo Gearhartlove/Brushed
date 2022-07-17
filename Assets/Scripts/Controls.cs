@@ -12,6 +12,8 @@ public class Controls : MonoBehaviour {
     [SerializeField] private Camera camera;
     [SerializeField] private Vector3 camRot;
 
+    [SerializeField] private Animator animator;
+
     [SerializeField]
     private GameObject pauseMenu;
 
@@ -20,13 +22,26 @@ public class Controls : MonoBehaviour {
 
     public bool isPaused;
 
+    private bool isAnimating;
+
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManage>();
         paint = GetComponent<Paint>();
+
+        animator = GetComponent<Animator>();
+        isAnimating = false;
     }
 
     private void Update() {
         camRot = camera.transform.rotation.eulerAngles;
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dice Falling"))
+        {
+            isAnimating = true;
+        } else
+        {
+            isAnimating = false;
+        }
     }
 
     public enum Direction {
@@ -94,7 +109,7 @@ public class Controls : MonoBehaviour {
     }
     
     public void OnW() {
-        if (!isMoving && !isPaused) {
+        if (!isMoving && !isPaused && !isAnimating) {
             var dir = GetDirection(Direction.North);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -104,7 +119,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnS() {
-        if (!isMoving && !isPaused) {
+        if (!isMoving && !isPaused && !isAnimating) {
             var dir = GetDirection(Direction.South);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -114,7 +129,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnA() {
-        if (!isMoving && !isPaused) {
+        if (!isMoving && !isPaused && !isAnimating) {
             var dir = GetDirection(Direction.West);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -124,7 +139,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnD() {
-        if (!isMoving && !isPaused) {
+        if (!isMoving && !isPaused && !isAnimating) {
             var dir = GetDirection(Direction.East);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);

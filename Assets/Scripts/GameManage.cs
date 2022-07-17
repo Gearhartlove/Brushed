@@ -18,6 +18,7 @@ public class GameManage : MonoBehaviour {
     }
     
     [SerializeField] private Level stage;
+    [SerializeField] private SFX_Manager sfx;
     
     private void Start() {
         canvasController = GameObject.Find("Canvas").GetComponent<Canvas_Controller>();
@@ -102,11 +103,11 @@ public class GameManage : MonoBehaviour {
         // correct
         if (!TheSamePaint(c, position)) {
             if (CorrectPaint(c, position)) {
-                // correct sound
+                sfx.PlayGoodColor();
                 
             }
             else {
-                // incorrect sound
+                sfx.PlayBadColor();
             }
             
         }
