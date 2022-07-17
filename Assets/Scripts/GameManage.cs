@@ -11,6 +11,9 @@ public class GameManage : MonoBehaviour {
     public Paint dicePaint;
     private bool progressIncremented = false;
 
+    [SerializeField]
+    private GameObject victoryMenu;
+
     public enum Level {
         Target,
         Abstract,
@@ -139,8 +142,10 @@ public class GameManage : MonoBehaviour {
             progressIncremented = true;
             Debug.Log("Stage Complete");
             GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>().IncrementStagesComplete();
+
             // play win animation / show win UI here
-            
+            victoryMenu.SetActive(true);
+            victoryMenu.GetComponent<Victory_Screen>().Win();
         }
     }
 

@@ -21,6 +21,7 @@ public class Controls : MonoBehaviour {
     private SFX_Manager sfx;
 
     public bool isPaused;
+    public bool isComplete;
 
     private bool isAnimating;
 
@@ -116,7 +117,7 @@ public class Controls : MonoBehaviour {
     }
     
     public void OnW() {
-        if (!isMoving && !isPaused && !isAnimating) {
+        if (!isMoving && !isPaused && !isAnimating && !isComplete) {
             var dir = GetDirection(Direction.North);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -126,7 +127,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnS() {
-        if (!isMoving && !isPaused && !isAnimating) {
+        if (!isMoving && !isPaused && !isAnimating && !isComplete) {
             var dir = GetDirection(Direction.South);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -136,7 +137,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnA() {
-        if (!isMoving && !isPaused && !isAnimating) {
+        if (!isMoving && !isPaused && !isAnimating && !isComplete) {
             var dir = GetDirection(Direction.West);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -146,7 +147,7 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnD() {
-        if (!isMoving && !isPaused && !isAnimating) {
+        if (!isMoving && !isPaused && !isAnimating && !isComplete) {
             var dir = GetDirection(Direction.East);
             if (gameManager.InBounds(dir)) {
                 UpdatePosition(dir);
@@ -171,13 +172,17 @@ public class Controls : MonoBehaviour {
     }
 
     public void OnEscape() {
-        if (!isPaused)
+        if (!isComplete)
         {
-            pauseMenu.SetActive(true);
-            pauseMenu.GetComponent<Pause_Menu>().Pause();
-        } else
-        {
-            pauseMenu.GetComponent<Pause_Menu>().Resume();
+            if (!isPaused)
+            {
+                pauseMenu.SetActive(true);
+                pauseMenu.GetComponent<Pause_Menu>().Pause();
+            }
+            else
+            {
+                pauseMenu.GetComponent<Pause_Menu>().Resume();
+            }
         }
     }
 
