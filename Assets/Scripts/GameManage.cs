@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManage : MonoBehaviour {
     // todo: update with spawn position
@@ -20,6 +21,10 @@ public class GameManage : MonoBehaviour {
         Greenfields,
         Smiley,
         Debug,
+        Window,
+        Bee,
+        Swim,
+        Cake
     }
     
     [SerializeField] private Level stage;
@@ -133,16 +138,19 @@ public class GameManage : MonoBehaviour {
             for (int x = 0; x <= 6; x++) {
                 // couldo: improve what is incorrect message
                 if (progressStage[y, x] != currentStage[y, x]) {
-                    Debug.Log("NOT EQUAL (" + y + "," + x+ ") | correct: " + currentStage[y, x] + " progress: " + progressStage[y, x]);
+                    Debug.Log("NOT EQUAL (" + x + "," + y+ ") | correct: " + currentStage[y, x] + " progress: " + progressStage[y, x]);
                     stageComplete = false;
                 }
             }
         }
         if (stageComplete && !progressIncremented) {
+            var pprog = GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>();
             progressIncremented = true;
             Debug.Log("Stage Complete");
-            GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>().IncrementStagesComplete();
-
+            if (!pprog.IsLevelCompleded(SceneManager.GetActiveScene().buildIndex) && pprog.getStagesComplet <  7) {
+                pprog.CompleteLevel(SceneManager.GetActiveScene().buildIndex);
+                pprog.IncrementStagesComplete();
+            }
             // play win animation / show win UI here
             victoryMenu.SetActive(true);
             victoryMenu.GetComponent<Victory_Screen>().Win();
@@ -177,6 +185,23 @@ public class GameManage : MonoBehaviour {
             case Level.Debug:
                 scene = debug_stage;
                 dice = debug_dice;
+                break;
+            case Level.Window:
+                scene = window_stage;
+                dice = window_dice;
+                break;
+            case Level.Bee:
+                scene = bee_stage;
+                dice = bee_dice;
+                break;
+            case Level.Swim:
+                scene = swim_stage;
+                dice = swim_dice;
+                break;
+            case Level.Cake:
+                scene = cake_stage;
+                dice = cake_dice;
+                
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(stage), stage, null);
@@ -316,19 +341,19 @@ public class GameManage : MonoBehaviour {
     
     // debug
     private static char[] debug_dice = new char[6] {
-        'r', //1
-        'p', //2
-        'g', //3
-        'g', //4
-        'g', //5
-        'g', //6
+        'b', //1
+        'b', //2
+        'b', //3
+        'b', //4
+        'b', //5
+        'b', //6
     };
 
     private static char[,] debug_stage = new char[7, 7] {
         {'b', 'b', 'd', 'd', 'd', 'd', 'd'},
         {'b', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'b', 'd', 'd', 'd', 'd', 'd', 'd'},
-        {'b', 'b', 'b', 'd', 'd', 'd', 'd'},
+        {'b', 'b', 'b', 'b', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
@@ -374,6 +399,50 @@ public class GameManage : MonoBehaviour {
         {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
         {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
     };
+    
+    // medium
+    private static char[] bee_dice = new char[6] {
+        'b', //1
+        'y', //2
+        'b', //3
+        'b', //4
+        'y', //5
+        'b', //6
+    };
+    
+    private static char[,] bee_stage = new char[7, 7] {
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'b', 'b', 'b', 'd', 'd'},
+        {'d', 'd', 'y', 'y', 'y', 'd', 'd'},
+        {'d', 'd', 'b', 'b', 'b', 'd', 'd'},
+        {'d', 'd', 'y', 'y', 'y', 'd', 'd'},
+        {'d', 'd', 'd', 'b', 'd', 'd', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+    };
+    
+    // derp
+    
+    // medium
+    private static char[] cake_dice = new char[6] {
+        'i', //1
+        'i', //2
+        'b', //3
+        'b', //4
+        'b', //5
+        'b', //6
+    };
+    
+    private static char[,] cake_stage = new char[7, 7] {
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'i', 'd', 'i', 'd', 'd'},
+        {'d', 'b', 'b', 'b', 'b', 'b', 'd'},
+        {'d', 'i', 'i', 'i', 'i', 'i', 'd'},
+        {'d', 'b', 'b', 'b', 'b', 'b', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+    };
+    
+    
 
     
     

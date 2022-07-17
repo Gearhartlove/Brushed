@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Level_Select : MonoBehaviour
 {
-
-    [SerializeField]
     private PlayerProgress playerProgress;
 
     private GameObject[] stages;
@@ -17,9 +15,10 @@ public class Level_Select : MonoBehaviour
     private int levelReveal;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        playerProgress = GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>();
         levelReveal = 0;
+        Debug.Log(playerProgress.getStagesComplet);
         for (int i = 0; i <= playerProgress.getStagesComplet; i++)
         {
             levels.transform.GetChild(i).GetComponent<Level_Manager>().unlock();
@@ -52,12 +51,15 @@ public class Level_Select : MonoBehaviour
 
     public void RevealLevels()
     {
-        if (levelReveal > 8)
+        if (levelReveal >7)
         {
             CancelInvoke();
         }
-        levels.transform.GetChild(levelReveal).gameObject.SetActive(true);
-        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
-        levelReveal++;
+        else {
+            levels.transform.GetChild(levelReveal).gameObject.SetActive(true);
+            GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
+            levelReveal++;
+        }
+        
     }
 }
