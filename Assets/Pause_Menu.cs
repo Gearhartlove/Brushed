@@ -35,6 +35,7 @@ public class Pause_Menu : MonoBehaviour
 
     public void Resume()
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
         isPaused = false;
         Dice.GetComponent<Controls>().isPaused = false;
         RegularUI.SetActive(true);
@@ -44,11 +45,13 @@ public class Pause_Menu : MonoBehaviour
 
     public void Restart()
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LevelSelect()
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
         SceneManager.LoadScene(0);
     }
 }

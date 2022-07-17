@@ -31,11 +31,13 @@ public class Victory_Screen : MonoBehaviour
 
     public void LevelSelect()
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
         SceneManager.LoadScene(0);
     }
 
     public void NextLevel()
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
