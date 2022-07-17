@@ -1,10 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Serialization;
-using Cinemachine;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -12,9 +6,10 @@ public class Controls : MonoBehaviour {
     private Quaternion targetRotation;
     private Paint paint;
 
+    private GameManage gameManager;
+
     // Cinamachine Camera
-    [SerializeField]
-    private Camera camera;
+    [SerializeField] private Camera camera;
     [SerializeField] private Vector3 camRot;
 
     [SerializeField]
@@ -26,13 +21,8 @@ public class Controls : MonoBehaviour {
     public bool isPaused;
 
     private void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManage>();
         paint = GetComponent<Paint>();
-        paint.SetDiceColor(1, paint.red);
-        paint.SetDiceColor(2, paint.orange);
-        paint.SetDiceColor(3, paint.yellow);
-        paint.SetDiceColor(4, paint.green);
-        paint.SetDiceColor(5, paint.blue);
-        paint.SetDiceColor(6, paint.purple);
     }
 
     private void Update() {
@@ -59,6 +49,7 @@ public class Controls : MonoBehaviour {
                     return Vector3.back;
             }
         }
+
         if (camRot.y >= 135 && camRot.y <= 225) {
             switch (dir) {
                 case Direction.North:
@@ -71,6 +62,7 @@ public class Controls : MonoBehaviour {
                     return Vector3.left;
             }
         }
+
         if (camRot.y >= 225 && camRot.y <= 315) {
             switch (dir) {
                 case Direction.North:
@@ -83,6 +75,7 @@ public class Controls : MonoBehaviour {
                     return Vector3.forward;
             }
         }
+
         if (camRot.y >= 315 || camRot.y <= 45) {
             switch (dir) {
                 case Direction.North:
@@ -103,28 +96,55 @@ public class Controls : MonoBehaviour {
     public void OnW() {
         if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.North);
-            StartCoroutine(Roll(dir));
+            if (gameManager.InBounds(dir)) {
+                UpdatePosition(dir);
+                StartCoroutine(Roll(dir));
+            }
         }
     }
 
     public void OnS() {
         if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.South);
-            StartCoroutine(Roll(dir));
+            if (gameManager.InBounds(dir)) {
+                UpdatePosition(dir);
+                StartCoroutine(Roll(dir));
+            }
         }
     }
-    
+
     public void OnA() {
         if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.West);
-            StartCoroutine(Roll(dir));
+            if (gameManager.InBounds(dir)) {
+                UpdatePosition(dir);
+                StartCoroutine(Roll(dir));
+            }
         }
     }
-    
+
     public void OnD() {
         if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.East);
-            StartCoroutine(Roll(dir));
+            if (gameManager.InBounds(dir)) {
+                UpdatePosition(dir);
+                StartCoroutine(Roll(dir));
+            }
+        }
+    }
+
+    public void UpdatePosition(Vector3 dir) {
+        if (dir == Vector3.back) {
+            gameManager.zPos--;
+        }
+        else if (dir == Vector3.forward) {
+            gameManager.zPos++;
+        }
+        else if (dir == Vector3.right) {
+            gameManager.xPos++;
+        }
+        else if (dir == Vector3.left) {
+            gameManager.xPos--;
         }
     }
 
@@ -141,7 +161,7 @@ public class Controls : MonoBehaviour {
 
     private bool isMoving = false;
     public int speed = 200;
-    
+
     IEnumerator Roll(Vector3 direction) {
         isMoving = true;
 
@@ -157,10 +177,12 @@ public class Controls : MonoBehaviour {
             remainingAngle -= rotationAngle;
             yield return null;
         }
-        
+
         // finished rolling, paint the canvas
         paint.SetCanvasColor();
-        
+        // check if the cell is correct
+        gameManager.CheckCell(paint.pieceBelow);
+
         isMoving = false;
     }
 

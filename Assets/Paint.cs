@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Paint : MonoBehaviour
-{
+public class Paint : MonoBehaviour {
+    public Canvas_Piece pieceBelow;
+    public Material bottomMat;
+    
     [SerializeField]
     private GameObject Canvas;
 
@@ -23,8 +25,7 @@ public class Paint : MonoBehaviour
     public GameObject Side5;
     public GameObject Side6;
     public GameObject[] Sides;
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         Sides = new GameObject[6];
@@ -36,14 +37,8 @@ public class Paint : MonoBehaviour
         Sides[5] = Side6;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Debug.DrawRay(transform.position + Vector3.up, Vector3.down * 10, Color.blue);
-    }
-
-    public void SetDiceColor(int side, Color newColor)
-    {
+    public void SetDiceColor(int side, Color newColor) {
+        Debug.Log("side: " + side); 
         Sides[side - 1].GetComponent<MeshRenderer>().material.color = newColor;
     }
 
@@ -59,13 +54,13 @@ public class Paint : MonoBehaviour
         if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out diceHit, 10, diceMask))
         {
             bottomSide = diceHit.collider.gameObject;
-            Debug.Log(bottomSide);
+            bottomMat = bottomSide.GetComponent<MeshRenderer>().material;
         }
 
         if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out canvasHit, 10, canvasMask))
         {
             canvasPiece = canvasHit.collider.gameObject;
-            Debug.Log(canvasPiece);
+            pieceBelow = canvasPiece.GetComponent<Canvas_Piece>();
         }
 
         if (bottomSide && canvasPiece)
@@ -101,7 +96,6 @@ public class Paint : MonoBehaviour
             {
                 newMaterial = canvasController.RedCanvas;
             }
-
             if (newMaterial)
             {
                 canvasController.SetMaterial(x, y, newMaterial);

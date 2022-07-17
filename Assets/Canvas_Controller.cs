@@ -20,6 +20,8 @@ public class Canvas_Controller : MonoBehaviour
     public Material BlackCanvas;
     [SerializeField]
     public Material YellowCanvas;
+    [SerializeField] 
+    public Material DefaultCanvas;
 
     private GameObject[,] CanvasArray;
 
@@ -39,13 +41,7 @@ public class Canvas_Controller : MonoBehaviour
             }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public Material GetMaterial(int XPos, int YPos)
     {
         GameObject canvas = CanvasArray[XPos, YPos];
@@ -54,10 +50,10 @@ public class Canvas_Controller : MonoBehaviour
 
     public void SetMaterial(int XPos, int YPos, Material Color)
     {
-        Debug.Log("X: " + XPos + "Y: " + YPos);
-        Debug.Log(CanvasArray[XPos, YPos]);
-        GameObject Canvas = CanvasArray[XPos, YPos];
-        Canvas.GetComponent<MeshRenderer>().material = Color;
+        // Debug.Log("X: " + XPos + "Y: " + YPos);
+        // Debug.Log(CanvasArray[XPos, YPos]);
+        GameObject canvasPiece = CanvasArray[XPos, YPos];
+        canvasPiece.GetComponent<MeshRenderer>().material = Color;
     }
 
     public void ResetMaterial(int XPos, int YPos)
