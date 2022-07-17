@@ -21,6 +21,7 @@ public class Level_Select : MonoBehaviour
 
     public void LoadStage(int newStage)
     {
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
         SceneManager.LoadScene(newStage);
     }
 }
