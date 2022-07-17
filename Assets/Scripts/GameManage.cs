@@ -96,12 +96,12 @@ public class GameManage : MonoBehaviour {
 
     // sound helper function
     private bool TheSamePaint(char c, Vector2 position) {
-        return progressStage[(int) position.x, (int) position.y] == c;
+        return progressStage[(int) position.y, (int) position.x] == c;
     }
     
     // sound helper function
     private bool CorrectPaint(char c, Vector2 position) {
-        return currentStage[(int) position.x, (int) position.y] == c;
+        return currentStage[(int) position.y, (int) position.x] == c;
     }
     
     public void CheckCell(Canvas_Piece piece) {
