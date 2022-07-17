@@ -17,6 +17,8 @@ public class SFX_Manager : MonoBehaviour
     private AudioSource badColor;
     [SerializeField]
     private AudioSource groundHit;
+    [SerializeField]
+    private AudioSource menuClick;
 
     private static GameObject sfxInstance;
 
@@ -38,6 +40,7 @@ public class SFX_Manager : MonoBehaviour
         badColor = GetComponents<AudioSource>()[2];
         goodColor = GetComponents<AudioSource>()[3];
         groundHit = GetComponents<AudioSource>()[4];
+        menuClick = GetComponents<AudioSource>()[5];
     }
 
     // Update is called once per frame
@@ -76,6 +79,19 @@ public class SFX_Manager : MonoBehaviour
 
     public void PlayGroundHit()
     {
+        if (!groundHit)
+        {
+            badColor = GetComponents<AudioSource>()[4];
+        }
         groundHit.Play();
+    }
+
+    public void PlayMenuClick()
+    {
+        if (!menuClick)
+        {
+            badColor = GetComponents<AudioSource>()[5];
+        }
+        menuClick.Play();
     }
 }

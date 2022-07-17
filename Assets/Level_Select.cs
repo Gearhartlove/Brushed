@@ -14,14 +14,18 @@ public class Level_Select : MonoBehaviour
     [SerializeField]
     private GameObject levels;
 
+    private int levelReveal;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        levelReveal = 0;
         for (int i = 0; i <= playerProgress.getStagesComplet; i++)
         {
             levels.transform.GetChild(i).GetComponent<Level_Manager>().unlock();
         }
+
+        InvokeRepeating("RevealLevels", 0.8f, 0.4f);
     }
 
     // Update is called once per frame
@@ -44,5 +48,16 @@ public class Level_Select : MonoBehaviour
             Debug.Log("is locked");
         }
         
+    }
+
+    public void RevealLevels()
+    {
+        if (levelReveal > 8)
+        {
+            CancelInvoke();
+        }
+        levels.transform.GetChild(levelReveal).gameObject.SetActive(true);
+        GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
+        levelReveal++;
     }
 }
