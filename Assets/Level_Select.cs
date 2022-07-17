@@ -40,7 +40,7 @@ public class Level_Select : MonoBehaviour
         if (!levels.transform.GetChild(newStage - 1).GetComponent<Level_Manager>().locked)
         {
             Debug.Log("unlocked");
-            GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
+            GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
             SceneManager.LoadScene(newStage);
         } else
         {
