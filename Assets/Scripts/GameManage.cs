@@ -10,11 +10,20 @@ public class GameManage : MonoBehaviour {
 
     public Paint dicePaint;
 
+    public enum Level {
+        Target,
+        Abstract,
+        Greenfields,
+        Smiley,
+    }
+    
+    [SerializeField] private Level stage;
+    
     private void Start() {
         canvasController = GameObject.Find("Canvas").GetComponent<Canvas_Controller>();
         dicePaint = GameObject.Find("Dice").GetComponent<Paint>();
         
-        setup_scene(abstract_stage, abstract_dice);
+        setup_scene(stage);
     }
 
     public bool InBounds(Vector3 dir) {
@@ -109,6 +118,7 @@ public class GameManage : MonoBehaviour {
             for (int x = 0; x < 6; x++) {
                 // couldo: improve what is incorrect message
                 if (progressStage[x, y] != currentStage[x, y]) {
+                    Debug.Log("NOT EQUAL (" + x + "," + y + ") | correct: " + currentStage[x, y] + " progress: " + progressStage[x, y]);
                     stageComplete = false;
                 }
             }
@@ -118,7 +128,35 @@ public class GameManage : MonoBehaviour {
         }
     }
 
-    public void setup_scene(char[,] scene, char[] dice) {
+    public void setup_scene(Level stage) {
+        char[,] scene = new char[7, 7];
+        char[] dice = new char[6];
+
+        switch (stage) {
+            case Level.Target:
+                scene = target_stage;
+                dice = target_dice;
+                // final_pic = target_pic;
+                break;
+            case Level.Abstract:
+                scene = abstract_stage;
+                dice = abstract_dice;
+                // final_pic = abstract_pic;
+                break;
+            case Level.Greenfields: 
+                scene = greenfield_stage;
+                dice = greenfield_dice;
+                // final_pic = greenfields_pic;
+                break;
+            case Level.Smiley:
+                scene = smiley_stage;
+                dice = smiley_dice;
+                // final_pic = smiley_pic;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(stage), stage, null);
+        }
+        
         // scene
         currentStage = scene;
         progressStage = new char[7, 7] {
@@ -167,7 +205,6 @@ public class GameManage : MonoBehaviour {
     }
     
     // easy
-    
     private static char[] target_dice = new char[6] {
         'r', //1
         'r', //2
