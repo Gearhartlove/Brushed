@@ -17,14 +17,22 @@ public class Controls : MonoBehaviour {
     private Camera camera;
     [SerializeField] private Vector3 camRot;
 
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    [SerializeField]
+    private SFX_Manager sfx;
+
+    public bool isPaused;
+
     private void Start() {
         paint = GetComponent<Paint>();
-        paint.SetDiceColor(1, paint.yellow);
-        paint.SetDiceColor(2, paint.black);
+        paint.SetDiceColor(1, paint.red);
+        paint.SetDiceColor(2, paint.orange);
         paint.SetDiceColor(3, paint.yellow);
-        paint.SetDiceColor(4, paint.yellow);
-        paint.SetDiceColor(5, paint.yellow);
-        paint.SetDiceColor(6, paint.yellow);
+        paint.SetDiceColor(4, paint.green);
+        paint.SetDiceColor(5, paint.blue);
+        paint.SetDiceColor(6, paint.purple);
     }
 
     private void Update() {
@@ -93,35 +101,42 @@ public class Controls : MonoBehaviour {
     }
     
     public void OnW() {
-        if (!isMoving) {
+        if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.North);
             StartCoroutine(Roll(dir));
         }
     }
 
     public void OnS() {
-        if (!isMoving) {
+        if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.South);
             StartCoroutine(Roll(dir));
         }
     }
     
     public void OnA() {
-        if (!isMoving) {
+        if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.West);
             StartCoroutine(Roll(dir));
         }
     }
     
     public void OnD() {
-        if (!isMoving) {
+        if (!isMoving && !isPaused) {
             var dir = GetDirection(Direction.East);
             StartCoroutine(Roll(dir));
         }
     }
 
     public void OnEscape() {
-        Debug.Log("Pressed Escape");
+        if (!isPaused)
+        {
+            pauseMenu.SetActive(true);
+            pauseMenu.GetComponent<Pause_Menu>().Pause();
+        } else
+        {
+            pauseMenu.GetComponent<Pause_Menu>().Resume();
+        }
     }
 
     private bool isMoving = false;
@@ -129,6 +144,8 @@ public class Controls : MonoBehaviour {
     
     IEnumerator Roll(Vector3 direction) {
         isMoving = true;
+
+        sfx.PlayRoll();
 
         float remainingAngle = 90;
         Vector3 rotationCenter = transform.position + direction + Vector3.down;
