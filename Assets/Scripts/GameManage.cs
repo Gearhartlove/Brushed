@@ -15,6 +15,7 @@ public class GameManage : MonoBehaviour {
         Abstract,
         Greenfields,
         Smiley,
+        Debug,
     }
     
     [SerializeField] private Level stage;
@@ -107,7 +108,6 @@ public class GameManage : MonoBehaviour {
         Vector2 position = piece.GetPosition();
         // get he color Char to update progress array
         Char c = GetColor(piece);
-        Debug.Log(c);
         // correct
         if (!TheSamePaint(c, position)) {
             if (CorrectPaint(c, position)) {
@@ -119,15 +119,17 @@ public class GameManage : MonoBehaviour {
             }
             
         }
-        // update progress array
-        progressStage[(int) position.x, (int) position.y] = c;
+        // update progress 
+        Debug.Log("Changing (" + position.x + "," + position.y + ") to color " + c);
+        progressStage[(int) position.y, (int) position.x] = c;
         // check the stage if it is complete
         bool stageComplete = true;
-        for (int y = 0; y < 6; y++) {
-            for (int x = 0; x < 6; x++) {
+        Debug.Log("-----------------------------------------");
+        for (int y = 0; y <= 6; y++) {
+            for (int x = 0; x <= 6; x++) {
                 // couldo: improve what is incorrect message
-                if (progressStage[x, y] != currentStage[x, y]) {
-                    Debug.Log("NOT EQUAL (" + x + "," + y + ") | correct: " + currentStage[x, y] + " progress: " + progressStage[x, y]);
+                if (progressStage[y, x] != currentStage[y, x]) {
+                    Debug.Log("NOT EQUAL (" + y + "," + x+ ") | correct: " + currentStage[y, x] + " progress: " + progressStage[y, x]);
                     stageComplete = false;
                 }
             }
@@ -226,16 +228,15 @@ public class GameManage : MonoBehaviour {
     private static char[,] target_stage = new char[7, 7] {
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
-        {'d', 'd', 'r', 'r', 'r', 'd', 'd'},
+        {'d', 'r', 'r', 'r', 'r', 'd', 'd'},
         {'d', 'd', 'r', 'd', 'r', 'd', 'd'},
-        {'d', 'd', 'r', 'r', 'r', 'd', 'd'},
+        {'d', 'd', 'r', 'r', 'r', 'r', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
     };
     
     
     // medium 
-    
     private static char[] greenfield_dice = new char[6] {
         'g', //1
         'g', //2
@@ -271,10 +272,10 @@ public class GameManage : MonoBehaviour {
     static char[,] smiley_stage = new char[7, 7] {
         {'y', 'y', 'y', 'y', 'y', 'y', 'y'},
         {'y', 'y', 'b', 'y', 'b', 'y', 'y'},
+        {'y', 'y', 'b', 'y', 'b', 'y', 'y'},
         {'y', 'y', 'y', 'y', 'y', 'y', 'y'},
         {'y', 'b', 'y', 'y', 'y', 'b', 'y'},
         {'y', 'y', 'b', 'b', 'b', 'y', 'y'},
-        {'y', 'y', 'y', 'y', 'y', 'y', 'y'},
         {'y', 'y', 'y', 'y', 'y', 'y', 'y'},
     };
     
@@ -298,4 +299,26 @@ public class GameManage : MonoBehaviour {
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
     };
+    
+    // debug
+    private static char[] debug_dice = new char[6] {
+        'b', //1
+        'b', //2
+        'b', //3
+        'b', //4
+        'b', //5
+        'b', //6
+    };
+
+    private static char[,] debug_stage = new char[7, 7] {
+        {'b', 'b', 'd', 'd', 'd', 'd', 'd'},
+        {'b', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'b', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'b', 'b', 'b', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+        {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
+    };
+
+
 }
