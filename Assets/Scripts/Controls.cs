@@ -27,9 +27,11 @@ public class Controls : MonoBehaviour {
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManage>();
         paint = GetComponent<Paint>();
+    }
 
-        animator = GetComponent<Animator>();
-        isAnimating = false;
+    private void Awake()
+    {
+        sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
     }
 
     private void Update() {
@@ -41,6 +43,11 @@ public class Controls : MonoBehaviour {
         } else
         {
             isAnimating = false;
+        }
+
+        if (!sfx)
+        {
+            sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
         }
     }
 

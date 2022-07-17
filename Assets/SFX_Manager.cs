@@ -32,6 +32,12 @@ public class SFX_Manager : MonoBehaviour
         {
             DestroyObject(gameObject);
         }
+
+        backgroundMusic = GetComponents<AudioSource>()[0];
+        roll = GetComponents<AudioSource>()[1];
+        badColor = GetComponents<AudioSource>()[2];
+        goodColor = GetComponents<AudioSource>()[3];
+        groundHit = GetComponents<AudioSource>()[4];
     }
 
     // Update is called once per frame
@@ -43,16 +49,28 @@ public class SFX_Manager : MonoBehaviour
 
     public void PlayRoll()
     {
+        if (!roll)
+        {
+            goodColor = GetComponents<AudioSource>()[1];
+        }
         roll.Play();
     }
 
     public void PlayGoodColor()
     {
+        if (!goodColor)
+        {
+            goodColor = GetComponents<AudioSource>()[3];
+        }
         goodColor.Play();
     }
 
     public void PlayBadColor()
     {
+        if (!badColor)
+        {
+            badColor = GetComponents<AudioSource>()[2];
+        }
         badColor.Play();
     }
 

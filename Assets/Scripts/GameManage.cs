@@ -27,6 +27,14 @@ public class GameManage : MonoBehaviour {
         setup_scene(stage);
     }
 
+    private void Update()
+    {
+        if (!sfx)
+        {
+            sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
+        }
+    }
+
     public bool InBounds(Vector3 dir) {
         var newXPos = xPos + dir.x;
         if (newXPos > 6 || newXPos < 0) {
