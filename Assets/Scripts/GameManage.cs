@@ -9,6 +9,7 @@ public class GameManage : MonoBehaviour {
     public float zPos = 3;
 
     public Paint dicePaint;
+    private bool progressIncremented = false;
 
     public enum Level {
         Target,
@@ -134,8 +135,12 @@ public class GameManage : MonoBehaviour {
                 }
             }
         }
-        if (stageComplete) {
-            Debug.Log("Stage Done");
+        if (stageComplete && !progressIncremented) {
+            progressIncremented = true;
+            Debug.Log("Stage Complete");
+            GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>().IncrementStagesComplete();
+            // play win animation / show win UI here
+            
         }
     }
 
@@ -163,6 +168,10 @@ public class GameManage : MonoBehaviour {
                 scene = smiley_stage;
                 dice = smiley_dice;
                 // final_pic = smiley_pic;
+                break;
+            case Level.Debug:
+                scene = debug_stage;
+                dice = debug_dice;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(stage), stage, null);
@@ -302,12 +311,12 @@ public class GameManage : MonoBehaviour {
     
     // debug
     private static char[] debug_dice = new char[6] {
-        'b', //1
-        'b', //2
-        'b', //3
-        'b', //4
-        'b', //5
-        'b', //6
+        'r', //1
+        'p', //2
+        'g', //3
+        'g', //4
+        'g', //5
+        'g', //6
     };
 
     private static char[,] debug_stage = new char[7, 7] {
@@ -319,6 +328,51 @@ public class GameManage : MonoBehaviour {
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
         {'d', 'd', 'd', 'd', 'd', 'd', 'd'},
     };
+    
+    // NEW STAGES
+    // easy
+    private static char[] window_dice = new char[6] {
+        'b', //1
+        'b', //2
+        'b', //3
+        'b', //4
+        'b', //5
+        'b', //6
+    };
+    
+    private static char[,] window_stage = new char[7, 7] {
+        {'b', 'b', 'b', 'b', 'b', 'b', 'b'},
+        {'b', 'd', 'd', 'b', 'd', 'd', 'b'},
+        {'b', 'd', 'd', 'b', 'd', 'd', 'b'},
+        {'b', 'b', 'b', 'b', 'b', 'b', 'b'},
+        {'b', 'd', 'd', 'b', 'd', 'd', 'b'},
+        {'b', 'd', 'd', 'b', 'd', 'd', 'b'},
+        {'b', 'b', 'b', 'b', 'b', 'b', 'b'},
+    };
+    
+    // medium
+    private static char[] swim_dice = new char[6] {
+        'b', //1
+        'u', //2
+        'b', //3
+        'b', //4
+        'u', //5
+        'b', //6
+    };
+    
+    private static char[,] swim_stage = new char[7, 7] {
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+        {'b', 'u', 'b', 'u', 'b', 'u', 'b'},
+    };
+
+    
+    
+    
 
 
 }

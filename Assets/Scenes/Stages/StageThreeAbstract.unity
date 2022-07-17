@@ -2069,7 +2069,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4168127, y: 1}
+    m_SensorSize: {x: 1.6680412, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2591,7 +2591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: ac1077c88fbb047c8b520e0c376957e2, type: 3}
+  m_Texture: {fileID: 2800000, guid: 340503906548c483b991b65a6a7d6d25, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2691,7 +2691,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4168127, y: 1}
+    m_SensorSize: {x: 1.6680412, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3160,6 +3160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 1198117499}
   camRot: {x: 0, y: 0, z: 0}
+  animator: {fileID: 1185058863}
   pauseMenu: {fileID: 265468433}
   sfx: {fileID: 126776884}
   isPaused: 0
@@ -4476,7 +4477,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4168127, y: 1}
+    m_SensorSize: {x: 1.6680412, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5536,7 +5537,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.4168127, y: 1}
+    m_SensorSize: {x: 1.6680412, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5831,13 +5832,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2077964723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8463d1b25c94cf4bc2875266d4f0dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3493721621f444e1a852d9a4eab0ca06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xPos: 3
   zPos: 3
   dicePaint: {fileID: 0}
   stage: 1
+  sfx: {fileID: 126776884}
   correctCells: 0
 --- !u!4 &2077964725
 Transform:
