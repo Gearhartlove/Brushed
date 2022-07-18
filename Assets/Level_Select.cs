@@ -12,6 +12,9 @@ public class Level_Select : MonoBehaviour
     [SerializeField]
     private GameObject levels;
 
+    [SerializeField]
+    private GameObject settings;
+
     private int levelReveal;
 
     // Start is called before the first frame update
@@ -25,6 +28,7 @@ public class Level_Select : MonoBehaviour
         }
 
         InvokeRepeating("RevealLevels", 0.8f, 0.4f);
+        Invoke("RevealSettings", 0.6f);
     }
 
     // Update is called once per frame
@@ -74,6 +78,11 @@ public class Level_Select : MonoBehaviour
             Debug.Log("is locked");
         }
         
+    }
+
+    public void RevealSettings()
+    {
+        settings.SetActive(true);
     }
 
     public void RevealLevels()

@@ -106,4 +106,34 @@ public class SFX_Manager : MonoBehaviour
         }
         sweep.Play();
     }
+
+    public void MuteSounds()
+    {
+        roll.mute = true;
+        badColor.mute = true;
+        goodColor.mute = true;
+        groundHit.mute = true;
+        menuClick.mute = true;
+        sweep.mute = true;
+    }
+
+    public void UnmuteSounds()
+    {
+        roll.mute = false;
+        badColor.mute = false;
+        goodColor.mute = false;
+        groundHit.mute = false;
+        menuClick.mute = false;
+        sweep.mute = false;
+    }
+
+    public void MuteMusic()
+    {
+        backgroundMusic.mute = true;
+    }
+
+    public void UnmuteMusic()
+    {
+        backgroundMusic.mute = false;
+    }
 }
