@@ -40,7 +40,34 @@ public class Level_Select : MonoBehaviour
         {
             Debug.Log("unlocked");
             GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
-            SceneManager.LoadScene(newStage);
+            string load = "";
+            switch (newStage) {
+                case 1:
+                    load = "StageOneTarget";
+                    break;
+                case 2:
+                    load = "StageFiveWindow";
+                    break;
+                case 3:
+                    load = "StageSixBee";
+                    break;
+                case 4:
+                    load = "StageTwoGrasslands";
+                    break;
+                case 5:
+                    load = "StageSevenSwim";
+                    break;
+                case 6:
+                    load = "StageFourSmiley";
+                    break;
+                case 7:
+                    load = "StageThreeAbstract";
+                    break;
+                case 8:
+                    load = "StageEightCake";
+                    break;
+            }
+            SceneManager.LoadScene(load);
         } else
         {
             // Could play different sound if stage is locked

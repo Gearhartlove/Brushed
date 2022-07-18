@@ -32,12 +32,43 @@ public class Victory_Screen : MonoBehaviour
     public void LevelSelect()
     {
         GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Level Select");
     }
 
     public void NextLevel()
     {
         GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        var newStage = SceneManager.GetActiveScene().buildIndex;
+        newStage += 1; // go to the next stage
+        string load = "";
+        switch (newStage) {
+            case 1:
+                load = "StageOneTarget";
+                break;
+            case 2:
+                load = "StageFiveWindow";
+                break;
+            case 3:
+                load = "StageSixBee";
+                break;
+            case 4:
+                load = "StageTwoGrasslands";
+                break;
+            case 5:
+                load = "StageSevenSwim";
+                break;
+            case 6:
+                load = "StageFourSmiley";
+                break;
+            case 7:
+                load = "StageThreeAbstract";
+                break;
+            case 8:
+                load = "StageEightCake";
+                break;
+        }
+        Debug.Log("New Stage Index: " + newStage + " , Loading: " + load);
+        SceneManager.LoadScene(load);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
