@@ -11,10 +11,12 @@ public class Victory_Screen : MonoBehaviour
     [SerializeField]
     private GameObject RegularUI;
 
+    private SFX_Manager sfx;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
     }
 
     // Update is called once per frame
@@ -27,6 +29,11 @@ public class Victory_Screen : MonoBehaviour
     {
         RegularUI.SetActive(false);
         Dice.GetComponent<Controls>().isComplete = true;
+        if (!sfx)
+        {
+            sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
+        }
+        sfx.PlayVictorySound();
     }
 
     public void LevelSelect()

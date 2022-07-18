@@ -14,10 +14,13 @@ public class Pause_Menu : MonoBehaviour
 
     public bool isPaused;
 
+    private SFX_Manager sfx;
+
     // Start is called before the first frame update
     void Start()
     {
         isPaused = false;
+        sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,11 @@ public class Pause_Menu : MonoBehaviour
         RegularUI.SetActive(false);
         isPaused = true;
         Dice.GetComponent<Controls>().isPaused = true;
+        if (!sfx)
+        {
+            sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
+        }
+        sfx.DampMusic();
     }
 
     public void Resume()
@@ -41,6 +49,7 @@ public class Pause_Menu : MonoBehaviour
         RegularUI.SetActive(true);
         GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
         gameObject.SetActive(false);
+        sfx.UndampMusic();
     }
 
     public void Restart()
@@ -52,6 +61,6 @@ public class Pause_Menu : MonoBehaviour
     public void LevelSelect()
     {
         GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Level Select");
     }
 }

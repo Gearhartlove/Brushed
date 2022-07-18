@@ -21,8 +21,12 @@ public class SFX_Manager : MonoBehaviour
     private AudioSource menuClick;
     [SerializeField]
     private AudioSource sweep;
+    [SerializeField]
+    private AudioSource victorySound;
 
     private static GameObject sfxInstance;
+
+    private List<AudioSource> sounds;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,13 +41,24 @@ public class SFX_Manager : MonoBehaviour
             DestroyObject(gameObject);
         }
 
+        sounds = new List<AudioSource>();
+
+        // Music
         backgroundMusic = GetComponents<AudioSource>()[0];
+
+        // Sounds
         roll = GetComponents<AudioSource>()[1];
         badColor = GetComponents<AudioSource>()[2];
         goodColor = GetComponents<AudioSource>()[3];
         groundHit = GetComponents<AudioSource>()[4];
         menuClick = GetComponents<AudioSource>()[5];
         sweep = GetComponents<AudioSource>()[6];
+        victorySound = GetComponents<AudioSource>()[7];
+
+        for (int i = 1; i < GetComponents<AudioSource>().Length; i++)
+        {
+            sounds.Add(GetComponents<AudioSource>()[i]);
+        }
     }
 
     // Update is called once per frame
@@ -107,24 +122,29 @@ public class SFX_Manager : MonoBehaviour
         sweep.Play();
     }
 
+    public void PlayVictorySound()
+    {
+        if (!victorySound)
+        {
+            victorySound = GetComponents<AudioSource>()[7];
+        }
+        victorySound.Play();
+    }
+
     public void MuteSounds()
     {
-        roll.mute = true;
-        badColor.mute = true;
-        goodColor.mute = true;
-        groundHit.mute = true;
-        menuClick.mute = true;
-        sweep.mute = true;
+        foreach(AudioSource sound in sounds)
+        {
+            sound.mute = true;
+        }
     }
 
     public void UnmuteSounds()
     {
-        roll.mute = false;
-        badColor.mute = false;
-        goodColor.mute = false;
-        groundHit.mute = false;
-        menuClick.mute = false;
-        sweep.mute = false;
+        foreach (AudioSource sound in sounds)
+        {
+            sound.mute = false;
+        }
     }
 
     public void MuteMusic()
@@ -135,5 +155,15 @@ public class SFX_Manager : MonoBehaviour
     public void UnmuteMusic()
     {
         backgroundMusic.mute = false;
+    }
+
+    public void DampMusic()
+    {
+        GetComponent<AudioLowPassFilter>().cutoffFrequency = 550;
+    }
+
+    public void UndampMusic()
+    {
+        GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
     }
 }
