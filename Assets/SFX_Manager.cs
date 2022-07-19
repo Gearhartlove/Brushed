@@ -6,6 +6,8 @@ public class SFX_Manager : MonoBehaviour
 {
     [SerializeField]
     private AudioSource backgroundMusic;
+    [SerializeField]
+    private AudioSource dampenedMusic;
 
     [SerializeField]
     private AudioSource roll;
@@ -45,15 +47,16 @@ public class SFX_Manager : MonoBehaviour
 
         // Music
         backgroundMusic = GetComponents<AudioSource>()[0];
+        dampenedMusic = GetComponents<AudioSource>()[1];
 
         // Sounds
-        roll = GetComponents<AudioSource>()[1];
-        badColor = GetComponents<AudioSource>()[2];
-        goodColor = GetComponents<AudioSource>()[3];
-        groundHit = GetComponents<AudioSource>()[4];
-        menuClick = GetComponents<AudioSource>()[5];
-        sweep = GetComponents<AudioSource>()[6];
-        victorySound = GetComponents<AudioSource>()[7];
+        roll = GetComponents<AudioSource>()[2];
+        badColor = GetComponents<AudioSource>()[3];
+        goodColor = GetComponents<AudioSource>()[4];
+        groundHit = GetComponents<AudioSource>()[5];
+        menuClick = GetComponents<AudioSource>()[6];
+        sweep = GetComponents<AudioSource>()[7];
+        victorySound = GetComponents<AudioSource>()[8];
 
         for (int i = 1; i < GetComponents<AudioSource>().Length; i++)
         {
@@ -159,11 +162,19 @@ public class SFX_Manager : MonoBehaviour
 
     public void DampMusic()
     {
-        GetComponent<AudioLowPassFilter>().cutoffFrequency = 550;
+        // This is not supported in WebGL
+        // GetComponent<AudioLowPassFilter>().cutoffFrequency = 550;
+
+        dampenedMusic.volume = 0.8f;
+        backgroundMusic.volume = 0;
     }
 
     public void UndampMusic()
     {
-        GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
+        // This is not supported in WebGL
+        // GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
+
+        dampenedMusic.volume = 0f;
+        backgroundMusic.volume = 0.8f;
     }
 }
