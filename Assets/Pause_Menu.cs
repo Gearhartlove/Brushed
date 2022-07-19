@@ -61,6 +61,7 @@ public class Pause_Menu : MonoBehaviour
     public void LevelSelect()
     {
         GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
+        sfx.UndampMusic();
         SceneManager.LoadScene("Level Select");
     }
 }

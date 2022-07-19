@@ -30,6 +30,14 @@ public class SFX_Manager : MonoBehaviour
 
     private List<AudioSource> sounds;
 
+    private bool isSoundsMuted;
+    public void ToggleSounds() => isSoundsMuted = !isSoundsMuted;
+    public bool IsSoundsMuted => isSoundsMuted;
+    
+    private bool isMusicMuted;
+    public void ToggleMusic() => isMusicMuted = !isMusicMuted;
+    public bool IsMusicMuted => isMusicMuted;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -63,14 +71,7 @@ public class SFX_Manager : MonoBehaviour
             sounds.Add(GetComponents<AudioSource>()[i]);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
+    
     public void PlayRoll()
     {
         if (!roll)
@@ -134,8 +135,8 @@ public class SFX_Manager : MonoBehaviour
         victorySound.Play();
     }
 
-    public void MuteSounds()
-    {
+    public void MuteSounds() {
+        isSoundsMuted = true;
         foreach(AudioSource sound in sounds)
         {
             sound.mute = true;
@@ -150,13 +151,13 @@ public class SFX_Manager : MonoBehaviour
         }
     }
 
-    public void MuteMusic()
-    {
+    public void MuteMusic() {
+        isMusicMuted = true;
         backgroundMusic.mute = true;
     }
 
-    public void UnmuteMusic()
-    {
+    public void UnmuteMusic() {
+        isMusicMuted = false;
         backgroundMusic.mute = false;
     }
 

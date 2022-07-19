@@ -11,7 +11,7 @@ public class settings : MonoBehaviour
     private bool MusicOn;
 
     [SerializeField]
-    private GameObject SoundButton;
+    private GameObject soundButton;
     [SerializeField]
     private GameObject musicButton;
 
@@ -30,28 +30,42 @@ public class settings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundOn = true;
-        MusicOn = true;
         sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
+        // Check sfx to see if sounds are muted when loading the scene. 
+        // Update UI based on results.
+        
+        // Sound
+        if (sfx.IsSoundsMuted) {
+            soundButton.GetComponentInChildren<Image>().sprite = soundOff;
+            SoundOn = false;
+        }
+        else {
+            soundButton.GetComponentInChildren<Image>().sprite = soundOn;
+            SoundOn = true;
+        }
+
+        // Music
+        if (sfx.IsMusicMuted) {
+            musicButton.GetComponentInChildren<Image>().sprite = musicOff;
+            MusicOn = false;
+        }
+        else {
+            musicButton.GetComponentInChildren<Image>().sprite = musicOn;
+            MusicOn = true;
+        }
     }
 
     public void toggleSound()
     {
-        if (SoundOn)
-        {
+        if (SoundOn) {
             SoundOn = false;
-            SoundButton.GetComponent<Image>().sprite = soundOff;
+            soundButton.GetComponentInChildren<Image>().sprite = soundOff;
             sfx.MuteSounds();
-        } else
-        {
+        } 
+        else {
             SoundOn = true;
-            SoundButton.GetComponent<Image>().sprite = soundOn;
+            soundButton.GetComponentInChildren<Image>().sprite = soundOn;
             sfx.UnmuteSounds();
             sfx.PlayMenuClick();
         }
@@ -62,14 +76,14 @@ public class settings : MonoBehaviour
         if (MusicOn)
         {
             MusicOn = false;
-            musicButton.GetComponent<Image>().sprite = musicOff;
+            musicButton.GetComponentInChildren<Image>().sprite = musicOff;
             sfx.MuteMusic();
             sfx.PlayMenuClick();
         }
         else
         {
             MusicOn = true;
-            musicButton.GetComponent<Image>().sprite = musicOn;
+            musicButton.GetComponentInChildren<Image>().sprite = musicOn;
             sfx.UnmuteMusic();
             sfx.PlayMenuClick();
         }
