@@ -21,7 +21,6 @@ public class Level_Select : MonoBehaviour
     void Start() {
         playerProgress = GameObject.Find("PlayerProgress").GetComponent<PlayerProgress>();
         levelReveal = 0;
-        Debug.Log(playerProgress.getStagesComplet);
         for (int i = 0; i <= playerProgress.getStagesComplet; i++)
         {
             levels.transform.GetChild(i).GetComponent<Level_Manager>().unlock();
@@ -68,7 +67,7 @@ public class Level_Select : MonoBehaviour
         } else
         {
             // Could play different sound if stage is locked
-            Debug.Log("is locked");
+            // Debug.Log("is locked");
         }
         
     }
@@ -85,7 +84,6 @@ public class Level_Select : MonoBehaviour
             CancelInvoke();
         }
         else {
-            Debug.Log("level reveal: " + levelReveal);
             levels.transform.GetChild(levelReveal).gameObject.SetActive(true);
             GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
             levelReveal++;

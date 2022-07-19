@@ -55,6 +55,7 @@ public class Pause_Menu : MonoBehaviour
     public void Restart()
     {
         GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayMenuClick();
+        sfx.UndampMusic();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
