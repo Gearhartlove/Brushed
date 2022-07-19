@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using Random = System.Random;
 
 public class Controls : MonoBehaviour {
     private Quaternion targetRotation;
@@ -26,24 +27,49 @@ public class Controls : MonoBehaviour {
     private bool isAnimating;
 
     private void Start() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManage>();
-        paint = GetComponent<Paint>();
+       
+        if (gameObject.name == "Level-Select-Dice") {
+            InvokeRepeating("MoveLevelSelectDice", 2f, 0.9f);
+        }
+    }
+
+    private void MoveLevelSelectDice() {
+        var rand = new Random();
+        var move = rand.Next(4);
+        switch (move) {
+            case 0:
+                OnW();
+                break;
+            case 1:
+                OnA();
+                break;
+            case 2:
+                OnS();
+                break;
+            case 3:
+                OnD();
+                break;
+        }
     }
 
     private void Awake()
     {
+        paint = GetComponent<Paint>();
         sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManage>();
     }
 
     private void Update() {
-        camRot = camera.transform.rotation.eulerAngles;
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dice Falling"))
-        {
-            isAnimating = true;
-        } else
-        {
-            isAnimating = false;
+        // Treat the level - select dice different than the game play dice
+        if (gameObject.name != "Level-Select-Dice") {
+            camRot = camera.transform.rotation.eulerAngles;   
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dice Falling"))
+            {
+                isAnimating = true;
+            } else
+            {
+                isAnimating = false;
+            }
         }
 
         if (!sfx)

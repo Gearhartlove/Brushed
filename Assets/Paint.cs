@@ -38,7 +38,6 @@ public class Paint : MonoBehaviour {
     }
 
     public void SetDiceColor(int side, Color newColor) {
-        Debug.Log("side: " + side); 
         Sides[side - 1].GetComponent<MeshRenderer>().material.color = newColor;
     }
 

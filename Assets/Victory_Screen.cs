@@ -111,7 +111,6 @@ public class Victory_Screen : MonoBehaviour
                 load = "StageEightCake";
                 break;
         }
-        Debug.Log("New Stage Index: " + newStage + " , Loading: " + load);
         SceneManager.LoadScene(load);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
