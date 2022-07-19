@@ -31,13 +31,6 @@ public class Level_Select : MonoBehaviour
         Invoke("RevealSettings", 0.6f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public void LoadStage(int newStage)
     {
         if (!levels.transform.GetChild(newStage - 1).GetComponent<Level_Manager>().locked)
@@ -92,6 +85,7 @@ public class Level_Select : MonoBehaviour
             CancelInvoke();
         }
         else {
+            Debug.Log("level reveal: " + levelReveal);
             levels.transform.GetChild(levelReveal).gameObject.SetActive(true);
             GameObject.Find("SFX").GetComponent<SFX_Manager>().PlayGroundHit();
             levelReveal++;

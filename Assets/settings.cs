@@ -35,12 +35,6 @@ public class settings : MonoBehaviour
         sfx = GameObject.Find("SFX").GetComponent<SFX_Manager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void toggleSound()
     {
         if (SoundOn)
