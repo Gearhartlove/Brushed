@@ -6870,7 +6870,7 @@ MonoBehaviour:
   zPos: 3
   dicePaint: {fileID: 0}
   victoryMenu: {fileID: 0}
-  stage: 3
+  stage: 9
   sfx: {fileID: 0}
   correctCells: 0
 --- !u!4 &2052533367
