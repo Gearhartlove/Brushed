@@ -2,6 +2,9 @@
 GMTK 2022 Game Jam Submission
 Theme: Roll of the Dice
 
+![](https://github.com/Gearhartlove/Brushed/blob/master/Media/git_pic.png)
+
+
 ### [Click Here to start painting](https://fuzzycamel.itch.io/brushed-2)
 
 Play as a dice painting a canvas in a 3D world. Brushed is [@cademidyett](https://github.com/cademidyett) and my submission 
